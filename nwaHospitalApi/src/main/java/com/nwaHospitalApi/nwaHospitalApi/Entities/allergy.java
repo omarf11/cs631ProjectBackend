@@ -4,17 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
 
-@Entity
 @Data
-public class physician {
+@Entity
+public class allergy {
     
-
     @Id
-    private Long id;
+    private Integer allergyId;
 
-    private String specialty;
+    private String allergyDescription;
 
-    private String type;
-
-    private Integer employee_id;
+    private Integer patient_id;
 }

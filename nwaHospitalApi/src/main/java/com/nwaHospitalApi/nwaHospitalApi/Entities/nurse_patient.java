@@ -6,22 +6,14 @@ import lombok.Data;
 
 @Data
 @Entity
-public class medicalData {
+public class nurse_patient {
+    
 
     @Id
-    private Long id;
-
-    private Integer bloodSugar;
-    private Integer cholestorel;
-
-    private Integer hol;
-
-    private Integer triglycerides;
-
-    private Integer ldl;
+    private Integer idnurse_patient;
 
     private Integer patient_id;
-
+    private Integer nurse_id;
+    private String shift;
     private String date;
-
 }

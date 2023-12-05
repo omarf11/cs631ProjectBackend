@@ -9,7 +9,7 @@ import lombok.Data;
 public class Employee {
     
     @Id
-    private Long empId;
+    private Integer empId;
 
     private Integer ssn;
 
