@@ -9,7 +9,7 @@ import lombok.Data;
 public class nurse {
 
     @Id
-    private Long id;
+    private Integer id;
 
     private String years;
     private String shift;
