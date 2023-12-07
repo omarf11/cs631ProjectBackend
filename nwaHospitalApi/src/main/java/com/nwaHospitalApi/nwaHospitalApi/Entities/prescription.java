@@ -9,7 +9,7 @@ import lombok.Data;
 public class prescription {
 
     @Id
-    private Long id;
+    private Integer id;
 
     private String dosage;
     private String duration;

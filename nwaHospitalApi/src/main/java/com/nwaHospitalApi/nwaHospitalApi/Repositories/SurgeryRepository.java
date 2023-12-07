@@ -1,5 +1,9 @@
 package com.nwaHospitalApi.nwaHospitalApi.Repositories;
 
-public class SurgeryRepository {
-    
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.nwaHospitalApi.nwaHospitalApi.Entities.surgery;
+
+public interface SurgeryRepository extends JpaRepository<surgery, Long> {
 }
+

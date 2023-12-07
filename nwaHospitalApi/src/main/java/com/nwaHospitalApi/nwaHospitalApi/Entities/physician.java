@@ -10,7 +10,7 @@ public class physician {
     
 
     @Id
-    private Long id;
+    private Integer id;
 
     private String specialty;
 

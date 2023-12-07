@@ -9,7 +9,7 @@ import lombok.Data;
 public class patient {
 
     @Id
-    private Long id;
+    private Integer id;
 
     private String dob;
 

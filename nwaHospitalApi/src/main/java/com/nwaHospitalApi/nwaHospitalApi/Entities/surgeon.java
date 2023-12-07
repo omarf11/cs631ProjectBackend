@@ -9,7 +9,7 @@ import lombok.Data;
 public class surgeon {
     
     @Id
-    private Long id;
+    private Integer id;
 
     private Integer contractID;
 

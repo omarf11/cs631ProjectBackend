@@ -9,7 +9,7 @@ import lombok.Data;
 public class medicalData {
 
     @Id
-    private Long id;
+    private Integer id;
 
     private Integer bloodSugar;
     private Integer cholestorel;
