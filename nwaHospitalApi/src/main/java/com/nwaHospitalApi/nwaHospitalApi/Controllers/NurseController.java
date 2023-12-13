@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.nwaHospitalApi.nwaHospitalApi.Entities.nurse;
 import com.nwaHospitalApi.nwaHospitalApi.Services.NurseService;
+import com.nwaHospitalApi.nwaHospitalApi.Views.NurseView;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/nurses")
@@ -24,10 +24,9 @@ public class NurseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<nurse> getNurseById(@PathVariable Integer id) {
-        Optional<nurse> nurse = nurseService.getNurseById(id);
-        return nurse.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<NurseView> getNurseById(@PathVariable Integer id) {
+        NurseView nurse = nurseService.getNurseByEmployee_Id(id);
+        return  new ResponseEntity<>(nurse, HttpStatus.OK);
     }
 
     @PostMapping

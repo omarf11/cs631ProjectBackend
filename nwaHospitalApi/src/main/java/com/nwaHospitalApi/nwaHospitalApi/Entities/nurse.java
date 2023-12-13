@@ -14,9 +14,9 @@ public class nurse {
     private String years;
     private String shift;
 
-    private String shiftDate;
+    private String shift_date;
 
-    private Integer employee_id;
+    private Integer employeeId;
     
     private Integer surgery_type;
     private Integer surgery_skill;

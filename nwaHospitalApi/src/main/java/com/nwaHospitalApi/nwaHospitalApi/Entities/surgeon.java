@@ -14,4 +14,6 @@ public class surgeon {
     private Integer contractID;
 
     private Integer surgeon_specialty;
+
+    private Integer employee_id;
 }
