@@ -16,5 +16,5 @@ public class physician {
 
     private String type;
 
-    private Integer employee_id;
+    private Integer employeeId;
 }

@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.nwaHospitalApi.nwaHospitalApi.Entities.physician;
 import com.nwaHospitalApi.nwaHospitalApi.Services.PhysicianService;
+import com.nwaHospitalApi.nwaHospitalApi.Views.PhysicianView;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/physicians")
@@ -25,10 +25,9 @@ public class PhysicianController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<physician> getPhysicianById(@PathVariable Integer id) {
-        Optional<physician> physician = physicianService.getPhysicianById(id);
-        return physician.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<PhysicianView> getPhysicianById(@PathVariable Integer id) {
+        PhysicianView physician = physicianService.getPhysicianByEmployeeId(id);
+        return new ResponseEntity<>(physician, HttpStatus.OK);
     }
 
     @PostMapping
