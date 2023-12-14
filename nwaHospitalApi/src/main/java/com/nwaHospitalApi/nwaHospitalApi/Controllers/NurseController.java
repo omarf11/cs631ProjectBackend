@@ -20,7 +20,7 @@ public class NurseController {
     private NurseService nurseService;
 
     @GetMapping
-    public List<nurse> getAllNurses() {
+    public List<NurseView> getAllNurses() {
         return nurseService.getAllNurses();
     }
 

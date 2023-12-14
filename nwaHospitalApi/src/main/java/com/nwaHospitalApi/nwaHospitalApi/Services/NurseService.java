@@ -10,6 +10,7 @@ import com.nwaHospitalApi.nwaHospitalApi.Views.NurseView;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class NurseService {
@@ -20,15 +21,23 @@ public class NurseService {
     @Autowired 
     private EmployeeService employeeService;
 
-    public List<nurse> getAllNurses() {
-        return nurseRepository.findAll();
+    public List<NurseView> getAllNurses() {
+        List<nurse> nurses = nurseRepository.findAll();
+
+        return nurses.stream().map(nurse -> 
+        NurseView.builder()
+        .employee_id(nurse.getEmployeeId())
+        .id(nurse.getId())
+        .shift(nurse.getShift())
+        .shiftDate(nurse.getShift_date())
+        .employeeInfo(employeeService.getEmployeeById(nurse.getEmployeeId()).get())
+        .build()).collect(Collectors.toList()); 
     }
 
     public Optional<nurse> getNurseById(Integer id) {
         return nurseRepository.findById(id);
     }
    public NurseView getNurseByEmployee_Id(Integer employee_id) {
-
         if (nurseRepository.existsByemployeeId(employee_id)) {
             Optional<nurse> test = nurseRepository.findByemployeeId(employee_id);
             Optional <Employee> employeeInfo  = employeeService.getEmployeeById(test.get().getEmployeeId());

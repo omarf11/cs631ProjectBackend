@@ -38,8 +38,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable Integer empId) {
-        return employeeService.getEmployeeById(empId)
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable Integer id) {
+        return employeeService.getEmployeeById(id)
                 .map(employee -> new ResponseEntity<>(employee, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
