@@ -29,6 +29,6 @@ public class patient {
 
     private Integer duration;
     
-    private Integer primary_physician;
+    private Integer primaryPhysicianId;
 
 }
