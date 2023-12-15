@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.nwaHospitalApi.nwaHospitalApi.DTOs.NurseEmployeeDTO;
 import com.nwaHospitalApi.nwaHospitalApi.Entities.nurse;
 import com.nwaHospitalApi.nwaHospitalApi.Services.NurseService;
 import com.nwaHospitalApi.nwaHospitalApi.Views.NurseView;
@@ -20,8 +21,9 @@ public class NurseController {
     private NurseService nurseService;
 
     @GetMapping
-    public List<NurseView> getAllNurses() {
-        return nurseService.getAllNurses();
+    public ResponseEntity<List<NurseEmployeeDTO>> getAllNurses() {
+        List<NurseEmployeeDTO> nurses = nurseService.getAllNursesEmployeeInfo();
+        return new ResponseEntity<>(nurses, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

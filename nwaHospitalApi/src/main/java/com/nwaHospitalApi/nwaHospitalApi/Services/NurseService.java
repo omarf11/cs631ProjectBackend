@@ -3,14 +3,15 @@ package com.nwaHospitalApi.nwaHospitalApi.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nwaHospitalApi.nwaHospitalApi.DTOs.NurseEmployeeDTO;
 import com.nwaHospitalApi.nwaHospitalApi.Entities.Employee;
 import com.nwaHospitalApi.nwaHospitalApi.Entities.nurse;
 import com.nwaHospitalApi.nwaHospitalApi.Repositories.NurseRepository;
 import com.nwaHospitalApi.nwaHospitalApi.Views.NurseView;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.List;
 
 @Service
 public class NurseService {
@@ -18,29 +19,42 @@ public class NurseService {
     @Autowired
     private NurseRepository nurseRepository;
 
-    @Autowired 
+    @Autowired
     private EmployeeService employeeService;
 
-    public List<NurseView> getAllNurses() {
-        List<nurse> nurses = nurseRepository.findAll();
+    public List<NurseEmployeeDTO> getAllNursesEmployeeInfo() {
 
-        return nurses.stream().map(nurse -> 
-        NurseView.builder()
-        .employee_id(nurse.getEmployeeId())
-        .id(nurse.getId())
-        .shift(nurse.getShift())
-        .shiftDate(nurse.getShift_date())
-        .employeeInfo(employeeService.getEmployeeById(nurse.getEmployeeId()).get())
-        .build()).collect(Collectors.toList()); 
+        List<NurseEmployeeDTO> nurses = nurseRepository.findAllNurseAndEmployees()
+                .stream()
+                .map(result -> NurseEmployeeDTO.builder()
+                        .id((Integer) result[0])
+                        .years((String) result[1])
+                        .shift((String) result[2])
+                        .shift_date((String) result[3])
+                        .employeeId((Integer) result[4])
+                        .surgery_type((Integer) result[5])
+                        .surgery_skill((Integer) result[6])
+                        .emp_id((Integer) result[7])
+                        .ssn((Integer) result[8])
+                        .address((String) result[9])
+                        .salary((Integer) result[10])
+                        .name((String) result[11])
+                        .gender((String) result[12])
+                        .phonenumber((Integer) result[13])
+                        .type((String) result[14])
+                        .build())
+                .collect(Collectors.toList());
+        return nurses;
     }
 
     public Optional<nurse> getNurseById(Integer id) {
         return nurseRepository.findById(id);
     }
-   public NurseView getNurseByEmployee_Id(Integer employee_id) {
+
+    public NurseView getNurseByEmployee_Id(Integer employee_id) {
         if (nurseRepository.existsByemployeeId(employee_id)) {
             Optional<nurse> test = nurseRepository.findByemployeeId(employee_id);
-            Optional <Employee> employeeInfo  = employeeService.getEmployeeById(test.get().getEmployeeId());
+            Optional<Employee> employeeInfo = employeeService.getEmployeeById(test.get().getEmployeeId());
 
             NurseView nurseView = NurseView.builder()
                     .employee_id(test.get().getEmployeeId())
@@ -56,6 +70,7 @@ public class NurseService {
             throw new RuntimeException("Nurse with employeeID " + employee_id + " not found");
         }
     }
+
     public nurse createNurse(nurse nurse) {
         return nurseRepository.save(nurse);
     }
