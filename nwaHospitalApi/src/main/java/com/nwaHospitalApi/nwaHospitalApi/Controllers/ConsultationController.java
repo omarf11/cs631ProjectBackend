@@ -23,11 +23,11 @@ public class ConsultationController {
         return consultationService.getAllConsultations();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<consultation> getConsultationById(@PathVariable Integer id) {
-        Optional<consultation> consultation = consultationService.getConsultationById(id);
-        return consultation.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    @GetMapping("/{physicianId}")
+    public ResponseEntity<List<consultation>> getConsultationById(@PathVariable Integer physicianId) {
+        List<consultation> consultation = consultationService.getConsultationByPhysicianId(physicianId);
+        return  new ResponseEntity<>(consultation, HttpStatus.OK);
+               
     }
 
     @PostMapping

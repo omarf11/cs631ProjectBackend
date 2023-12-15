@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.nwaHospitalApi.nwaHospitalApi.DTOs.PhysicianEmployeeDTO;
 import com.nwaHospitalApi.nwaHospitalApi.Entities.physician;
 import com.nwaHospitalApi.nwaHospitalApi.Services.PhysicianService;
 import com.nwaHospitalApi.nwaHospitalApi.Views.PhysicianView;
@@ -20,7 +21,7 @@ public class PhysicianController {
     private PhysicianService physicianService;
 
     @GetMapping
-    public List<physician> getAllPhysicians() {
+    public List<PhysicianEmployeeDTO> getAllPhysicians() {
         return physicianService.getAllPhysicians();
     }
 

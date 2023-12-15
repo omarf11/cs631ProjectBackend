@@ -1,17 +1,23 @@
-package com.nwaHospitalApi.nwaHospitalApi.Entities;
+package com.nwaHospitalApi.nwaHospitalApi.DTOs;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Entity
-public class patient {
+@Builder
+public class PatientClinicBedDTO {
+    
+    private Integer bedId;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String unit;
+    private String wing;
+
+    private String bedLetter;
+
+    private Integer roomNumber;
+
+    private Integer patientId;
+
     private Integer id;
 
     private String dob;

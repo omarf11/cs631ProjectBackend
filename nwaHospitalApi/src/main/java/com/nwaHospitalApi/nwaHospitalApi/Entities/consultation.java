@@ -17,6 +17,6 @@ public class consultation {
     private String notes;
     private Integer patient_id;
 
-    private Integer physician_id;
+    private Integer physicianId;
 
 }

@@ -22,6 +22,9 @@ public class ConsultationService {
     public Optional<consultation> getConsultationById(Integer id) {
         return consultationRepository.findById(id);
     }
+     public List<consultation> getConsultationByPhysicianId(Integer physicianId) {
+        return consultationRepository.findByphysicianId(physicianId);
+    }
 
     public consultation createConsultation(consultation consultation) {
         return consultationRepository.save(consultation);

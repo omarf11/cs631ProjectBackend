@@ -3,6 +3,7 @@ package com.nwaHospitalApi.nwaHospitalApi.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nwaHospitalApi.nwaHospitalApi.DTOs.PatientClinicBedDTO;
 import com.nwaHospitalApi.nwaHospitalApi.Entities.clinicBed;
 import com.nwaHospitalApi.nwaHospitalApi.Repositories.ClinicBedRepository;
 
@@ -15,8 +16,10 @@ public class ClinicBedService {
     @Autowired
     private ClinicBedRepository clinicBedRepository;
 
-    public List<clinicBed> getAllClinicBeds() {
-        return clinicBedRepository.findAll();
+    public List<PatientClinicBedDTO> getAllClinicBeds() {
+       List<Object[]> dto = clinicBedRepository.findAllClinicBedsAndPatiens();
+       
+        return clinicBedRepository.mapToDTO(dto);
     }
 
     public Optional<clinicBed> getClinicBedById(Integer bedId) {
