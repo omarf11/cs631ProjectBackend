@@ -38,12 +38,21 @@ public class ClinicBedService {
             throw new RuntimeException("ClinicBed with ID " + bedId + " not found");
         }
     }
-
-    public void deleteClinicBed(Integer bedId) {
+     public clinicBed updateClinicBedPatient(Integer bedId, Integer patientId) {
         if (clinicBedRepository.existsById(bedId)) {
-            clinicBedRepository.deleteById(bedId);
+            clinicBedRepository.updatePatientIdByBedId(bedId , patientId);
+            return clinicBedRepository.findById(bedId).get();
         } else {
             throw new RuntimeException("ClinicBed with ID " + bedId + " not found");
         }
     }
+
+    public void removePatient(Integer bedId) {
+        if (clinicBedRepository.existsById(bedId)) {
+            clinicBedRepository.updatePatientIdToNullByBedId(bedId);
+        } else {
+            throw new RuntimeException("ClinicBed with ID " + bedId + " not found");
+        }
+    }
+
 }

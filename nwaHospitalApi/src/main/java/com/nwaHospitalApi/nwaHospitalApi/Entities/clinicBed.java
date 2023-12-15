@@ -20,5 +20,6 @@ public class clinicBed {
     private String bedLetter;
 
     private Integer roomNumber;
+    private Integer patientId;
 
 }

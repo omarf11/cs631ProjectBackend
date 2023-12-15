@@ -13,6 +13,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/beds")
+@CrossOrigin(origins = "*", allowedHeaders = { "Authorization", "content-Type" }, methods = { RequestMethod.GET,
+        RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE })
 public class ClinicBedController {
 
     private final ClinicBedService clinicBedService;
@@ -32,30 +34,39 @@ public class ClinicBedController {
         return clinicBedService.getClinicBedById(bedId);
     }
 
-    @PutMapping("/{bedId}")
-public ResponseEntity<clinicBed> updateBed(@PathVariable Integer bedId, @RequestBody clinicBed updatedBed) {
-    Optional<clinicBed> existingBedOptional = clinicBedService.getClinicBedById(bedId);
+    @PutMapping("/{bedId}/{patientId}")
+    public ResponseEntity<clinicBed> updateBed(@PathVariable Integer bedId, @PathVariable Integer patientId) {
+        Optional<clinicBed> existingBedOptional = clinicBedService.getClinicBedById(bedId);
 
-    if (existingBedOptional.isPresent()) {
-        clinicBed existingBed = existingBedOptional.get();
-        // Update the properties of the existing bed with the new values
-        existingBed.setUnit(updatedBed.getUnit());
-        existingBed.setWing(updatedBed.getWing());
-        existingBed.setBedLetter(updatedBed.getBedLetter());
-        existingBed.setRoomNumber(updatedBed.getRoomNumber());
+        if (existingBedOptional.isPresent()) {
 
-        // Save the updated bed
-        clinicBed savedBed = clinicBedService.updateClinicBed(existingBed.getBedId(),existingBed);
-        return ResponseEntity.ok(savedBed);
-    } else {
-        // Bed not found with the given bedId
-        return ResponseEntity.notFound().build();
+            // Save the updated bed
+            clinicBed savedBed = clinicBedService.updateClinicBedPatient(bedId, patientId);
+            return ResponseEntity.ok(savedBed);
+        } else {
+            // Bed not found with the given bedId
+            return ResponseEntity.notFound().build();
+        }
     }
-}
+    @PutMapping("/remove/{bedId}")
+    public ResponseEntity<clinicBed> removePatientIdByBedId(@PathVariable Integer bedId) {
+        Optional<clinicBed> existingBedOptional = clinicBedService.getClinicBedById(bedId);
 
-    @DeleteMapping("/{bedId}")
-    public void deleteBed(@PathVariable Integer bedId) {
-        clinicBedService.deleteClinicBed(bedId);
+        if (existingBedOptional.isPresent()) {
+            clinicBed existingBed = existingBedOptional.get();
+
+            // Save the updated bed
+            clinicBed savedBed = clinicBedService.updateClinicBed(existingBed.getBedId(), existingBed);
+            return ResponseEntity.ok(savedBed);
+        } else {
+            // Bed not found with the given bedId
+            return ResponseEntity.notFound().build();
+        }
     }
-}
 
+
+    // @DeleteMapping("/{bedId}")
+    // public void deleteBed(@PathVariable Integer bedId) {
+    //     clinicBedService.deleteClinicBed(bedId);
+    // }
+}

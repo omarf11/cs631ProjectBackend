@@ -9,10 +9,10 @@ import com.nwaHospitalApi.nwaHospitalApi.Entities.consultation;
 import com.nwaHospitalApi.nwaHospitalApi.Services.ConsultationService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/consultations")
+@CrossOrigin(origins = "http://localhost:3000") 
 public class ConsultationController {
 
     @Autowired

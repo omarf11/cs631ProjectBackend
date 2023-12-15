@@ -1,6 +1,7 @@
 package com.nwaHospitalApi.nwaHospitalApi.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import com.nwaHospitalApi.nwaHospitalApi.Entities.patient;
@@ -43,5 +44,17 @@ public class PatientService {
             throw new RuntimeException("Patient with ID " + id + " not found");
         }
     }
-}
 
+    public patient updatePatientPhysicianId(Integer id, @Nullable Integer physicianId) {
+
+        if (patientRepository.existsById(id)) {
+
+         patientRepository.updatePhysicianIdByBedId(id , physicianId);
+
+         return patientRepository.findById(id).get();
+        } else {
+            throw new RuntimeException("NOT FOUND");
+        }
+
+    }
+}

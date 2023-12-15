@@ -49,6 +49,14 @@ public class PatientController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PutMapping("/updatePhyscian/{id}/physicianId/{physicianId}")
+    public ResponseEntity<patient> updatePatientsPhysicianId(@PathVariable Integer id , @PathVariable @RequestParam(required = false) Integer physicianId) {
+
+        patient p = patientService.updatePatientPhysicianId(id , physicianId);
+
+        return new ResponseEntity<>(p , HttpStatus.OK);
+    }
+
 
 }
 
