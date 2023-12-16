@@ -68,7 +68,13 @@ import java.util.Optional;
 
     @PutMapping("/{id}/removeNurse")
     public ResponseEntity<patient> removeNurseId(@PathVariable Integer id ) {
-        System.out.println("NURSEID IN CONTROLLER:");
+        patient p = patientService.updatePatientPhysId(id , null);
+
+        return new ResponseEntity<>(p , HttpStatus.OK);
+    }
+
+     @PutMapping("/{id}/removeDoctor")
+    public ResponseEntity<patient> removePhysicianId(@PathVariable Integer id ) {
         patient p = patientService.updatePatientNurseId(id , null);
 
         return new ResponseEntity<>(p , HttpStatus.OK);

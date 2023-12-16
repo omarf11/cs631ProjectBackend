@@ -48,7 +48,7 @@ public class ClinicBedController {
             return ResponseEntity.notFound().build();
         }
     }
-    @PutMapping("/remove/{bedId}")
+    @PutMapping("/{bedId}/remove")
     public ResponseEntity<clinicBed> removePatientIdByBedId(@PathVariable Integer bedId) {
         Optional<clinicBed> existingBedOptional = clinicBedService.getClinicBedById(bedId);
 
@@ -56,7 +56,7 @@ public class ClinicBedController {
             clinicBed existingBed = existingBedOptional.get();
 
             // Save the updated bed
-            clinicBed savedBed = clinicBedService.updateClinicBed(existingBed.getBedId(), existingBed);
+            clinicBed savedBed = clinicBedService.updateClinicBedPatient(bedId, null);
             return ResponseEntity.ok(savedBed);
         } else {
             // Bed not found with the given bedId
@@ -64,9 +64,4 @@ public class ClinicBedController {
         }
     }
 
-
-    // @DeleteMapping("/{bedId}")
-    // public void deleteBed(@PathVariable Integer bedId) {
-    //     clinicBedService.deleteClinicBed(bedId);
-    // }
 }

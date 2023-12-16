@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface PatientRepository  extends JpaRepository<patient, Integer>{
 
-   @Modifying
+    @Modifying
     @Transactional
     @Query(value  = "UPDATE patient p SET p.primary_physician_id = :physicianId WHERE p.id = :id" , nativeQuery = true)
     void updatePhysicianId(Integer id, Integer physicianId); 

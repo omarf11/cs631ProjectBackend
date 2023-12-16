@@ -45,12 +45,11 @@ public class PatientService {
         }
     }
 
-    public patient updatePatientPhysId(Integer id, @Nullable Integer physicianId) {
+    public patient updatePatientPhysId(Integer id,  Integer physicianId) {
 
         if (patientRepository.existsById(id)) {
-
             patientRepository.updatePhysicianId(id, physicianId);
-
+            
             return patientRepository.findById(id).get();
         } else {
             throw new RuntimeException("NOT FOUND");
@@ -59,7 +58,6 @@ public class PatientService {
 
     public patient updatePatientNurseId(Integer id, Integer nurseId) {
         if (patientRepository.existsById(id)) {
-            System.out.println("!!!!NURSEID!!!!!!:   " + nurseId);
             patientRepository.updateNurseId(id, nurseId);
 
             return patientRepository.findById(id).get();

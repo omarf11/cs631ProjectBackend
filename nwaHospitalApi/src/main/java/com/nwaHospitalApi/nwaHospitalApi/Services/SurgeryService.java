@@ -7,6 +7,7 @@ import com.nwaHospitalApi.nwaHospitalApi.DTOs.SurgeryDTO;
 import com.nwaHospitalApi.nwaHospitalApi.Entities.CreateSurgeryRequest;
 import com.nwaHospitalApi.nwaHospitalApi.Entities.nurse;
 import com.nwaHospitalApi.nwaHospitalApi.Entities.surgery;
+import com.nwaHospitalApi.nwaHospitalApi.Repositories.NurseRepository;
 import com.nwaHospitalApi.nwaHospitalApi.Repositories.SurgeryRepository;
 
 import java.util.List;
@@ -27,6 +28,9 @@ public class SurgeryService {
 
     @Autowired 
     private SurgeryTypeService surgeryTypeService;
+
+    @Autowired
+    private NurseRepository nurseRepository;
 
 
     public List<surgery> getAllSurgeries() {
@@ -58,17 +62,12 @@ public class SurgeryService {
         nurseService.updateNurse(n1.getId(), n1);
         nurseService.updateNurse(n2.getId(), n2);
 
-System.out.println("SURGERY REQUEST: date  " + surgeryRequest.getDate());
-System.out.println("SURGERY REQUEST:  patientId " + surgeryRequest.getPatientId());
-
-System.out.println("SURGERY REQUEST:  surgeonId  " + surgeryRequest.getSurgeonId());
-System.out.println("SURGERY REQUEST:  surgeryType  " + surgeryRequest.getSurgeryTypeId());
-
         return savedSurg;
     }
 
     public surgery updateSurgery(Integer id, surgery updatedSurgery) {
         if (surgeryRepository.existsById(id)) {
+
             updatedSurgery.setId(id);
             return surgeryRepository.save(updatedSurgery);
         } else {
@@ -78,6 +77,9 @@ System.out.println("SURGERY REQUEST:  surgeryType  " + surgeryRequest.getSurgery
 
     public void deleteSurgery(Integer id) {
         if (surgeryRepository.existsById(id)) {
+        List<nurse> nurses =   nurseService.getNursesBySurgeryId(id);
+            nurses.forEach(n -> nurseRepository.updateSurgeryId(id, n.getId()));
+
             surgeryRepository.deleteById(id);
         } else {
             throw new RuntimeException("Surgery with ID " + id + " not found");
@@ -88,13 +90,15 @@ System.out.println("SURGERY REQUEST:  surgeryType  " + surgeryRequest.getSurgery
         List<surgery> surgeries = surgeryRepository.findAll();
 
         List<SurgeryDTO> dto  = surgeries.stream().map(s -> 
+
+
         SurgeryDTO.builder()
         .surgeryId(s.getId())
         .patientName(patientService.getPatientById(s.getPatient_id()).get().getName())
         .date(s.getDate())
-        .surgeonName(s.getSurgeon_id().toString())
+        .surgeonId(s.getSurgeon_id())
         .surgeryType(surgeryTypeService.getSurgeryTypeById(s.getSurgery_type_id()).get().getType())
-        .nurses(List.of("test1"))
+        .nurses(nurseService.getNursesViewBySurgeryId(s.getId()))
         .build()
         ).collect(Collectors.toList()) ;
         return dto;

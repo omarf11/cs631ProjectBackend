@@ -11,6 +11,7 @@ import com.nwaHospitalApi.nwaHospitalApi.Views.NurseView;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -91,5 +92,16 @@ public class NurseService {
         } else {
             throw new RuntimeException("Nurse with ID " + id + " not found");
         }
+    }
+
+    public List <NurseView> getNursesViewBySurgeryId(Integer surgeryId){
+       List<nurse> nurses =  nurseRepository.findBySurgeryId(surgeryId);
+       List <NurseView> nurseViews = new ArrayList<>();
+        nurses.stream().forEach( n -> nurseViews.add(getNurseByEmployee_Id(n.getEmployeeId())));
+        return nurseViews;
+    }
+    public List <nurse> getNursesBySurgeryId(Integer surgeryId){
+       List<nurse> nurses =  nurseRepository.findBySurgeryId(surgeryId);
+        return nurses;
     }
 }
