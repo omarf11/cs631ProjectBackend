@@ -1,18 +1,24 @@
 package com.nwaHospitalApi.nwaHospitalApi.Entities;
 
-import jakarta.persistence.Entity;
+
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Data;
 
+import jakarta.persistence.Entity;
+
+@Builder
 @Data
 @Entity
+@NoArgsConstructor
 public class surgery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String date;
 
@@ -23,5 +29,6 @@ public class surgery {
     private Integer patient_id;
 
     private Integer surgery_type_id;
+
 
 }

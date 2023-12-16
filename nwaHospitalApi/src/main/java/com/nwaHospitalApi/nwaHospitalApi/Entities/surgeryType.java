@@ -19,4 +19,6 @@ public class surgeryType {
 
     private Integer surgery_skill_id;
 
+    private String type;
+
 }

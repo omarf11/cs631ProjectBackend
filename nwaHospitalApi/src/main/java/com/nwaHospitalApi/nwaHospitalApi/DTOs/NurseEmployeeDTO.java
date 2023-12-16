@@ -18,6 +18,7 @@ public class NurseEmployeeDTO {
 
         private Integer surgery_type;
         private Integer surgery_skill;
+        private Integer surgeryId;
 
         // Fields from Employee entity
         private Integer emp_id;

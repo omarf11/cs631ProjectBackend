@@ -23,5 +23,6 @@ public class nurse {
     
     private Integer surgery_type;
     private Integer surgery_skill;
+    private Integer surgeryId;
 
 }
