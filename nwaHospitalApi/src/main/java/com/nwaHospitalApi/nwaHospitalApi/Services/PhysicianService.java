@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.nwaHospitalApi.nwaHospitalApi.DTOs.PhysicianEmployeeDTO;
 import com.nwaHospitalApi.nwaHospitalApi.Entities.Employee;
 import com.nwaHospitalApi.nwaHospitalApi.Entities.consultation;
+import com.nwaHospitalApi.nwaHospitalApi.Entities.patient;
 import com.nwaHospitalApi.nwaHospitalApi.Entities.physician;
 import com.nwaHospitalApi.nwaHospitalApi.Repositories.PhysicianRepository;
 import com.nwaHospitalApi.nwaHospitalApi.Views.PhysicianView;
@@ -22,6 +23,8 @@ public class PhysicianService {
     private EmployeeService employeeService;
     @Autowired
     private ConsultationService consultationService;
+    @Autowired
+    private PatientService patientService;
 
     public List<PhysicianEmployeeDTO> getAllPhysicians() {
         
@@ -67,6 +70,10 @@ public class PhysicianService {
 
     public void deletePhysician(Integer id) {
         if (physicianRepository.existsById(id)) {
+
+            List<patient> patients = patientService.getPatientsByPhysicianId(id);
+            //chief of staff id set when physician deleeted
+            patients.forEach(p -> patientService.updatePatientPhysId(p.getId(), 9999));
             physicianRepository.deleteById(id);
         } else {
             throw new RuntimeException("Physician with ID " + id + " not found");

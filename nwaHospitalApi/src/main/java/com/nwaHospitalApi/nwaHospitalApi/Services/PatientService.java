@@ -28,6 +28,13 @@ public class PatientService {
         return patientRepository.save(patient);
     }
 
+    public List<patient> getPatientsByNurseId (Integer nurseId) {
+        return patientRepository.findByNurseId();
+    }
+    public List<patient> getPatientsByPhysicianId (Integer physicianId) {
+        return patientRepository.findByPhysicianId(physicianId);
+    }
+
     public patient updatePatient(Integer id, patient updatedPatient) {
         if (patientRepository.existsById(id)) {
             updatedPatient.setId(id);

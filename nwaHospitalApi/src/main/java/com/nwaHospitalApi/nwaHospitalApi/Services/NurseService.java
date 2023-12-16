@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.nwaHospitalApi.nwaHospitalApi.DTOs.NurseEmployeeDTO;
 import com.nwaHospitalApi.nwaHospitalApi.Entities.Employee;
 import com.nwaHospitalApi.nwaHospitalApi.Entities.nurse;
+import com.nwaHospitalApi.nwaHospitalApi.Entities.patient;
 import com.nwaHospitalApi.nwaHospitalApi.Repositories.NurseRepository;
 import com.nwaHospitalApi.nwaHospitalApi.Views.NurseView;
 
@@ -22,6 +23,8 @@ public class NurseService {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired PatientService patientService;
 
     public List<NurseEmployeeDTO> getAllNursesEmployeeInfo() {
 
@@ -88,6 +91,9 @@ public class NurseService {
 
     public void deleteNurse(Integer id) {
         if (nurseRepository.existsById(id)) {
+
+            List<patient> patients = patientService.getPatientsByNurseId(id);
+            patients.forEach(p-> patientService.updatePatientNurseId(p.getId(), null));
             nurseRepository.deleteById(id);
         } else {
             throw new RuntimeException("Nurse with ID " + id + " not found");

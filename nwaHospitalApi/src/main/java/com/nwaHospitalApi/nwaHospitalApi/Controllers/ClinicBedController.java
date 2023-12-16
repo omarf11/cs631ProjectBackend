@@ -53,8 +53,6 @@ public class ClinicBedController {
         Optional<clinicBed> existingBedOptional = clinicBedService.getClinicBedById(bedId);
 
         if (existingBedOptional.isPresent()) {
-            clinicBed existingBed = existingBedOptional.get();
-
             // Save the updated bed
             clinicBed savedBed = clinicBedService.updateClinicBedPatient(bedId, null);
             return ResponseEntity.ok(savedBed);
