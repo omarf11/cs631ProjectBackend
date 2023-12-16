@@ -11,5 +11,10 @@ public interface PatientRepository  extends JpaRepository<patient, Integer>{
    @Modifying
     @Transactional
     @Query(value  = "UPDATE patient p SET p.primary_physician_id = :physicianId WHERE p.id = :id" , nativeQuery = true)
-    void updatePhysicianIdByBedId(Integer id, Integer physicianId);    
+    void updatePhysicianId(Integer id, Integer physicianId); 
+    
+    @Modifying
+    @Transactional
+    @Query(value  = "UPDATE patient p SET p.nurse_id = :nurseId WHERE p.id = :id" , nativeQuery = true)
+    void updateNurseId(Integer id, Integer nurseId);    
 }

@@ -14,8 +14,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/nurses")
-@CrossOrigin(origins = "http://localhost:3000") 
-public class NurseController {
+@CrossOrigin(origins = "*", allowedHeaders = { "Authorization", "content-Type" }, methods = { RequestMethod.GET,
+    RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE  , RequestMethod.OPTIONS  })
+    public class NurseController {
 
     @Autowired
     private NurseService nurseService;

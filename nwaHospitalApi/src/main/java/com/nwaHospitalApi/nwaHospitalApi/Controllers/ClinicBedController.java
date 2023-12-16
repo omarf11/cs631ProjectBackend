@@ -14,7 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/beds")
 @CrossOrigin(origins = "*", allowedHeaders = { "Authorization", "content-Type" }, methods = { RequestMethod.GET,
-        RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE })
+        RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS  })
 public class ClinicBedController {
 
     private final ClinicBedService clinicBedService;

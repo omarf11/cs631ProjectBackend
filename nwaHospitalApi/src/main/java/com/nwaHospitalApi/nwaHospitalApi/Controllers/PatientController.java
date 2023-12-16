@@ -13,8 +13,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/patients")
-@CrossOrigin(origins = "http://localhost:3000") 
-public class PatientController {
+@CrossOrigin(origins = "*", allowedHeaders = { "Authorization", "content-Type" },
+        methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS })
+
+    public class PatientController {
 
     @Autowired
     private PatientService patientService;
@@ -49,13 +51,29 @@ public class PatientController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/updatePhyscian/{id}/physicianId/{physicianId}")
-    public ResponseEntity<patient> updatePatientsPhysicianId(@PathVariable Integer id , @PathVariable @RequestParam(required = false) Integer physicianId) {
+    @PutMapping("/{id}/physician/{physicianId}")
+    public ResponseEntity<patient> updatePatientsPhysicianId(@PathVariable Integer id ,  @PathVariable Integer physicianId) {
 
-        patient p = patientService.updatePatientPhysicianId(id , physicianId);
+        patient p = patientService.updatePatientPhysId(id , physicianId);
 
         return new ResponseEntity<>(p , HttpStatus.OK);
     }
+    @PutMapping("/{id}/nurse/{nurseId}")
+    public ResponseEntity<patient> updatePatientsNurseId(@PathVariable Integer id , @PathVariable Integer nurseId) {
+        System.out.println("NURSEID IN CONTROLLER: " + nurseId);
+        patient p = patientService.updatePatientNurseId(id , nurseId);
+
+        return new ResponseEntity<>(p , HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}/removeNurse")
+    public ResponseEntity<patient> removeNurseId(@PathVariable Integer id ) {
+        System.out.println("NURSEID IN CONTROLLER:");
+        patient p = patientService.updatePatientNurseId(id , null);
+
+        return new ResponseEntity<>(p , HttpStatus.OK);
+    }
+
 
 
 }

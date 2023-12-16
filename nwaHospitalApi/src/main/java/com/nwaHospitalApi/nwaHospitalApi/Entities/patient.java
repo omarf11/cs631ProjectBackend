@@ -31,5 +31,6 @@ public class patient {
     private Integer duration;
     
     private Integer primaryPhysicianId;
+    private Integer nurseId;
 
 }
