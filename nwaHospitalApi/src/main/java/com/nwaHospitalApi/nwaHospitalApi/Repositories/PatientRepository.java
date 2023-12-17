@@ -21,8 +21,8 @@ public interface PatientRepository  extends JpaRepository<patient, Integer>{
     @Query(value  = "UPDATE patient p SET p.nurse_id = :nurseId WHERE p.id = :id" , nativeQuery = true)
     void updateNurseId(Integer id, Integer nurseId);
 
-    List<patient> findByNurseId();    
+    List<patient> findByNurseId(Integer nurseId);    
     
-    List<patient> findByPhysicianId(Integer physicianId);    
+    List<patient> findByPrimaryPhysicianId(Integer primaryPhysicianId);    
 
 }

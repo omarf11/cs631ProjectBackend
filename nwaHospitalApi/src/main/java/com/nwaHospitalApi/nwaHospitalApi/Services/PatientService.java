@@ -29,10 +29,10 @@ public class PatientService {
     }
 
     public List<patient> getPatientsByNurseId (Integer nurseId) {
-        return patientRepository.findByNurseId();
+        return patientRepository.findByNurseId(nurseId);
     }
     public List<patient> getPatientsByPhysicianId (Integer physicianId) {
-        return patientRepository.findByPhysicianId(physicianId);
+        return patientRepository.findByPrimaryPhysicianId(physicianId);
     }
 
     public patient updatePatient(Integer id, patient updatedPatient) {
