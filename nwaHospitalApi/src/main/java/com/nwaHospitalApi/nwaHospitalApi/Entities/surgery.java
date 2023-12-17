@@ -1,6 +1,7 @@
 package com.nwaHospitalApi.nwaHospitalApi.Entities;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import jakarta.persistence.Entity;
 @Builder
 @Data
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
 public class surgery {
 
